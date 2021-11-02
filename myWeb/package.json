@@ -1,0 +1,20 @@
+{
+  "name": "myweb",
+  "version": "1.0.0",
+  "description": "my awsome website",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "web",
+    "quiz"
+  ],
+  "author": "farhan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jade": "^1.11.0",
+    "mongoose": "^6.0.12"
+  }
+}

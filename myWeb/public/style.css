@@ -1,0 +1,51 @@
+@font-face{
+    font-family: 'iransans';
+    src: url('iransans.ttf');
+}
+body{
+    background-color: white;
+    padding: 0;
+    margin: 0;
+}
+nav{
+    background-color: lightgray;
+    overflow: hidden;
+    padding: 0 5vw;
+}
+nav a{
+    float: right;
+    display: block;
+    padding: 0.8vw 2vw;
+    font-family: 'iransans';
+    font-size: 1.4vw;
+    color: darkblue;
+    text-decoration: none;
+}
+nav a:hover{
+    background-color: lightblue;
+}
+header img{
+    width: 100%;
+}
+
+form{
+    display: block;
+    width: 60%;
+    margin: 3vw auto;
+    padding: 2vw;
+    background-color: white;
+    box-shadow: 0 0 0.5vw 0.1vw rgba(0, 0, 0, 0.2);
+    border-radius: 1vw;
+    direction: rtl;
+}
+form label{
+    display: block;
+    font-family: 'iransans';
+    font-size: 1.2vw;
+}
+form input{
+    display: block;
+    font-family: 'iransans';
+    font-size: 1.2vw;
+    width: 100%;
+}
