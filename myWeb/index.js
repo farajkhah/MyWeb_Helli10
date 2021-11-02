@@ -43,6 +43,9 @@ app.post('/register', function(req, res){
     if(password != password2){
         res.send('تایید رمز عبور صحیح نمیباشد');
     }
+    if(password.length < 4){
+        res.send('رمز عبور بسیار ضعیف است.')
+    }
     else{
         var user = new User({
             firstName: firstName,
