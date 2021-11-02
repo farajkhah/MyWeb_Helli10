@@ -49,3 +49,27 @@ form input{
     font-size: 1.2vw;
     width: 100%;
 }
+form a.link{
+    font-family: 'iransans';
+    font-size: 1.2vw;
+    display: block;
+    width: fit-content;
+    margin: 1vw 0;
+    text-decoration: none;
+}
+form a.link:hover{
+    color: chocolate;
+}
+form button{
+    background-color: rgb(71, 128, 212);
+    padding: 0.5vw 2vw;
+    color: white;
+    border: none;
+    font-family: 'iransans';
+    font-size: 1.2vw;
+    cursor: pointer;
+}
+form button:hover{
+    background-color: chocolate;
+}
+
