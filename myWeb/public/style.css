@@ -73,3 +73,16 @@ form button:hover{
     background-color: chocolate;
 }
 
+.error{
+    background-color: coral;
+    width: 55%;
+    margin: 2vw auto;
+    border-radius: 1vw;
+    color: white;
+    padding: 1vw 3vw;
+    text-align: right;
+    direction: rtl;
+    font-family: 'iransans';
+    font-size: 1.2vw;
+    font-weight: bold;
+}

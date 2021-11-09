@@ -1,6 +1,13 @@
 extends layout
 
 block content
+    -if(error != ''){
+        .error= error
+    -}
+    -if(error_msg != ''){
+        .error= error_msg
+    -}
+    
     form(action="/login" method="POST") 
         label(for="username") نام کاربری:
         input.text(type="text" name="username")

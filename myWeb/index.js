@@ -3,18 +3,51 @@ const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const User = require('./models/User');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+const {ensureAuthenticated} = require('./config/auth');
 
+// Database Connection
 mongoose.connect('mongodb://localhost:27017/helli10').then(function(){
     console.log('Database connected');
 });
 
-const User = mongoose.model('User', new mongoose.Schema({ 
-    firstName: String,
-    lastName: String,
-    username: String,
-    email: String,
-    password: String,
+// express session middleware
+const{
+    SESS_NAME = 'sid',
+    SESS_TIME = 1000 * 60 * 60 * 2 
+} = process.env
+
+app.use(session({
+    name: SESS_NAME,
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: SESS_TIME ,
+        sameSite: true,
+        secure: false
+    }
 }));
+
+// connect flash
+app.use(flash());
+
+//Global vars
+app.use(function(req, res, next){
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
+
+// passport config
+require('./config/passports')(passport);
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -26,20 +59,22 @@ app.set('view engine', 'jade');
 app.get('/', function(req, res){
     res.render('home');
 });
-
 app.get('/login', function(req, res){
     res.render('login');
+});
+app.post('/login', function(req, res, next){
+    var {username, password} = req.body;
+    passport.authenticate('local', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/login',
+        failureFlash: true
+    })(req, res, next);
 });
 app.get('/register', function(req, res){
     res.render('register');
 });
 app.post('/register', function(req, res){
-    var firstName = req.body.firstName;
-    var lastName = req.body.lastName;
-    var username = req.body.username;
-    var email = req.body.email;
-    var password = req.body.password;
-    var password2 = req.body.password2;
+    var {firstName, lastName, username, email, password, password2} = req.body;
     if(password != password2){
         res.send('تایید رمز عبور صحیح نمیباشد');
     }
@@ -58,7 +93,11 @@ app.post('/register', function(req, res){
             res.render('login');
         });
     }
-})
+});
+
+app.get('/dashboard', ensureAuthenticated, function(req, res){
+    res.send('this is dashboard');
+});
 
 
 app.listen(3000);
