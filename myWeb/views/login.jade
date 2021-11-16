@@ -7,6 +7,9 @@ block content
     -if(error_msg != ''){
         .error= error_msg
     -}
+    -if(success_msg != ''){
+        .success= success_msg
+    -}
     
     form(action="/login" method="POST") 
         label(for="username") نام کاربری:

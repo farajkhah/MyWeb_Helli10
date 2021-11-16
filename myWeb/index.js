@@ -78,7 +78,7 @@ app.post('/register', function(req, res){
     if(password != password2){
         res.send('تایید رمز عبور صحیح نمیباشد');
     }
-    if(password.length < 4){
+    else if(password.length < 4){
         res.send('رمز عبور بسیار ضعیف است.')
     }
     else{
@@ -96,7 +96,15 @@ app.post('/register', function(req, res){
 });
 
 app.get('/dashboard', ensureAuthenticated, function(req, res){
-    res.send('this is dashboard');
+    res.render('dashboard', {
+        user: req.user,
+    });
+});
+
+app.get('/logout', function(req, res){
+    req.logOut();
+    req.flash('success_msg', 'شما با موفقیت خارج شدید');
+    res.redirect('/login');
 });
 
 
