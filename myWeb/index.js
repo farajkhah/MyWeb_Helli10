@@ -1,13 +1,14 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const User = require('./models/User');
 const session = require('express-session');
-const passport = require('passport');
 const flash = require('connect-flash');
 const {ensureAuthenticated} = require('./config/auth');
+const passport = require('passport');
+
+const mongoose = require('mongoose');
+const User = require('./models/User');
 
 // Database Connection
 mongoose.connect('mongodb://localhost:27017/helli10').then(function(){
@@ -52,6 +53,9 @@ app.use(passport.session());
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', './views');
 app.set('view engine', 'jade');
@@ -106,6 +110,8 @@ app.get('/logout', function(req, res){
     req.flash('success_msg', 'شما با موفقیت خارج شدید');
     res.redirect('/login');
 });
+
+
 
 
 app.listen(3000);
