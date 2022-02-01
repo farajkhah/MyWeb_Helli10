@@ -100,3 +100,7 @@ form button:hover{
     font-size: 1.2vw;
     font-weight: bold;
 }
+img{
+    width: 15vw;
+    margin: 0.5vw;
+}

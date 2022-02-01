@@ -9,6 +9,7 @@ const passport = require('passport');
 
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const Photo = require('./models/Photo');
 
 // Database Connection
 mongoose.connect('mongodb://localhost:27017/helli10').then(function(){
@@ -53,8 +54,34 @@ app.use(passport.session());
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
+const multer  = require('multer')
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, '/public/files'))
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+  
+const upload = multer({ storage: storage })
 
+app.get('/upload', (req, res) => {
+    res.render('upload');
+});
+app.post('/upload', upload.single('avatar'), (req, res) => {
+    var link = '/files/' + req.file.originalname.toString();
+    var photo = new Photo({
+        link: link,
+        date: new Date(),
+        likes: 0,
+        comments: [],
+    });
+    photo.save().then(doc => {
+        res.redirect('/galery');
+    }).catch(err => console.log(err));
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', './views');
@@ -110,6 +137,15 @@ app.get('/logout', function(req, res){
     req.flash('success_msg', 'شما با موفقیت خارج شدید');
     res.redirect('/login');
 });
+
+
+app.get('/galery', (req, res) => {
+    Photo.find({}, (err, photos) => {
+        res.render('galery', {
+            photos,
+        })
+    })
+})
 
 
 
