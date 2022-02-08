@@ -1,7 +1,20 @@
 extends layout 
 
 block content 
+    .black-modal
+    .gallery-container 
+        -for(var i=0; i<photos.length; i++){
+            img(id="img-#{i}" src="#{photos[i].link}")
+        -}
     -for(var i=0; i<photos.length; i++){
-        img(src="#{photos[i].link}")
+        .img-popup(id="img-popup-#{i}")
+            img(src="#{photos[i].link}")
+            a(href="/galery-like?photoID=#{photos[i]._id}") 
+                i.fa.fa-heart-o.heart-o
+                i.fa.fa-heart.heart
+                .num= photos[i].likes
     -}
+
+    script(src="/js/galery.js") 
+
     a(href="/upload") آپلود فایل

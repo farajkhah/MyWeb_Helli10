@@ -100,7 +100,60 @@ form button:hover{
     font-size: 1.2vw;
     font-weight: bold;
 }
-img{
-    width: 15vw;
-    margin: 0.5vw;
+.gallery-container{
+    overflow: hidden;
+    width: 90%;
+    margin: 1vw auto;
+    text-align: center;
 }
+.gallery-container img{
+    height: 10vw;
+    margin: 0.5vw;
+    border: transparent 0.2vw solid;
+    box-shadow: none;
+    transition-duration: 500ms;
+    cursor: pointer;
+}
+.gallery-container img:hover{
+    border: darkblue 0.2vw solid;
+    box-shadow: 0 0 0.5vw 0.3vw rgba(0, 0, 0, 0.2);
+}
+.black-modal{
+    background-color: rgba(0, 0, 0, 0.637);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    display: none;
+}
+.img-popup{
+    position: fixed;
+    top: 5vw;
+    right: 15%;
+    width: 70%;
+    z-index: 11;
+    display: none;
+}
+.img-popup img{
+    width: 100%;
+    display: block;
+    border-radius: 0.8vw;
+}
+
+.img-popup a{
+    text-decoration: none;
+    color: white;
+}
+.img-popup a i.heart-o{
+    color: white;
+    font-size: 2vw;
+}
+.img-popup a i.heart{
+    color: red;
+    font-size: 2vw;
+    display: none;
+}
+.img-popup a:hover i.heart{display: block;}
+.img-popup a:hover i.heart-o{display: none;}

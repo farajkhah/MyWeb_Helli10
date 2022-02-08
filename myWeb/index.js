@@ -147,7 +147,14 @@ app.get('/galery', (req, res) => {
     })
 })
 
-
+app.get('/galery-like', (req, res) => {
+    Photo.findById(req.query.photoID, (err, photo) => {
+        Photo.updateMany({_id: req.query.photoID}, {$set: {likes: photo.likes+1}}, (err) => {
+            if(err) console.log(err);
+            res.redirect('/galery');
+        })
+    });
+})
 
 
 app.listen(3000);
