@@ -157,3 +157,22 @@ form button:hover{
 }
 .img-popup a:hover i.heart{display: block;}
 .img-popup a:hover i.heart-o{display: none;}
+.img-popup a{
+    display: block;
+    overflow: hidden;
+}
+.img-popup a i{
+    display: block;
+    float: left;
+    padding: 0 0.8vw;
+}
+.img-popup .num{
+    display: block;
+    float: left;
+    font-family: 'iransans';
+
+    font-size: 1.2vw;
+}
+.img-popup a i.liked{
+    display: block;
+}

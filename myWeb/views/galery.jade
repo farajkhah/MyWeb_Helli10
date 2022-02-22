@@ -9,10 +9,17 @@ block content
     -for(var i=0; i<photos.length; i++){
         .img-popup(id="img-popup-#{i}")
             img(src="#{photos[i].link}")
-            a(href="/galery-like?photoID=#{photos[i]._id}") 
-                i.fa.fa-heart-o.heart-o
-                i.fa.fa-heart.heart
-                .num= photos[i].likes
+            -if(liked[photos[i]._id.toString()]){
+                a 
+                    i.fa.fa-heart.heart.liked
+                    .num= photos[i].likes
+            -}else{
+                a(href="/galery-like?photoID=#{photos[i]._id}") 
+                    i.fa.fa-heart-o.heart-o
+                    i.fa.fa-heart.heart
+                    .num= photos[i].likes
+            -}
+            
     -}
 
     script(src="/js/galery.js") 

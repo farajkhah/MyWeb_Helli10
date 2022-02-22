@@ -54,7 +54,8 @@ app.use(passport.session());
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
-const multer  = require('multer')
+const multer  = require('multer');
+const { ifError } = require('assert');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -140,9 +141,11 @@ app.get('/logout', function(req, res){
 
 
 app.get('/galery', (req, res) => {
+    if(!req.session.liked) req.session.liked = {};
     Photo.find({}, (err, photos) => {
         res.render('galery', {
             photos,
+            liked: req.session.liked,
         })
     })
 })
@@ -151,6 +154,7 @@ app.get('/galery-like', (req, res) => {
     Photo.findById(req.query.photoID, (err, photo) => {
         Photo.updateMany({_id: req.query.photoID}, {$set: {likes: photo.likes+1}}, (err) => {
             if(err) console.log(err);
+            req.session.liked[req.query.photoID] = true;
             res.redirect('/galery');
         })
     });
