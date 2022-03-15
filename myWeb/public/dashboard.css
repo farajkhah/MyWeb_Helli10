@@ -33,7 +33,10 @@ body{
     right: 0;
     height: 100vh;
 }
-
+.content{
+    width: 80%;
+    margin-right: 20%;
+}
 .sidebar img{
     width: 40%;
     display: block;
@@ -78,4 +81,25 @@ body{
 }
 .links a.red{
     color: var(--red);
+}
+form{
+    display: block;
+    width: 60%;
+    margin: 3vw auto;
+    padding: 2vw;
+    background-color: white;
+    box-shadow: 0 0 0.5vw 0.1vw rgba(0, 0, 0, 0.2);
+    border-radius: 1vw;
+    direction: rtl;
+}
+form label{
+    display: block;
+    font-family: 'iransans';
+    font-size: 1.2vw;
+}
+form input{
+    display: block;
+    font-family: 'iransans';
+    font-size: 1.2vw;
+    width: 100%;
 }

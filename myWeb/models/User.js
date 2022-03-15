@@ -6,6 +6,7 @@ const User = mongoose.model('User', new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    photos: {type: [Object], default: []},
 }));
 
 module.exports = User;

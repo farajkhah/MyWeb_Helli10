@@ -26,4 +26,9 @@ html(lang="en")
                     i.fa.fa-power-off
                     | خروج
         .content
-
+            form(action="/upload" method="post" enctype="multipart/form-data") 
+                input(type="file" name="avatar")
+                input(type="submit" value="ثبت")
+            -for(var i=0; i<user.photos.length; i++){
+                img(src="#{user.photos[i].link}" height="200px")
+            -}

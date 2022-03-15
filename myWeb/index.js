@@ -73,15 +73,22 @@ app.get('/upload', (req, res) => {
 });
 app.post('/upload', upload.single('avatar'), (req, res) => {
     var link = '/files/' + req.file.originalname.toString();
-    var photo = new Photo({
-        link: link,
-        date: new Date(),
-        likes: 0,
-        comments: [],
-    });
-    photo.save().then(doc => {
-        res.redirect('/galery');
-    }).catch(err => console.log(err));
+    var photos = req.user.photos;
+    photos.push({link: link, date: new Date(), likes: 0, comments: []});
+    User.updateMany({_id: req.user._id}, {$set: {photos: photos}}, (err, doc) => {
+        if(err) console.log(err);
+        res.redirect('/dashboard');
+    })
+
+    // var photo = new Photo({
+    //     link: link,
+    //     date: new Date(),
+    //     likes: 0,
+    //     comments: [],
+    // });
+    // photo.save().then(doc => {
+    //     res.redirect('/galery');
+    // }).catch(err => console.log(err));
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
